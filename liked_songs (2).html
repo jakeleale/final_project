@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Liked Songs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Your Liked Songs</h2>
+        <form method="get" class="form-inline">
+            <label for="sort" class="me-2">Sort by:</label>
+            <select name="sort" id="sort" class="form-select d-inline w-auto me-2" onchange="this.form.submit()">
+                <option value="default" {% if sort == 'default' %}selected{% endif %}>Default</option>
+                <option value="popularity" {% if sort == 'popularity' %}selected{% endif %}>Popularity</option>
+                <option value="release_date" {% if sort == 'release_date' %}selected{% endif %}>Release Date</option>
+                <option value="duration_ms" {% if sort == 'duration_ms' %}selected{% endif %}>Duration</option>
+            </select>
+        </form>
+    </div>
+
+    <p class="text-muted">Currently sorted by: <strong>{{ sort|capitalize }}</strong></p>
+
+    {% if tracks %}
+        <table class="table table-hover">
+            <form method="POST" action="{{ url_for('get_liked_songs') }}">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Name</th>
+                <th>Artist</th>
+                <th>Popularity</th>
+                <th>Release Date</th>
+                <th>Duration</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for track in tracks %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="selected_tracks" value="{{ track.id }}"
+                               {% if track.id in session.get('cart', []) %}checked{% endif %}>
+                    </td>
+                    <td>{{ track.name }}</td>
+                    <td>{{ track.artist }}</td>
+                    <td>{{ track.popularity }}</td>
+                    <td>{{ track.release_date }}</td>
+                    <td>{{ track.duration_ms }}</td>
+                    <td>
+                        <a href="{{ track.url }}" target="_blank" class="btn btn-sm btn-outline-success">Listen</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Add to Playlist</button>
+</form>
+
+        </table>
+    {% else %}
+        <p>No liked songs found.</p>
+    {% endif %}
+</div>
+</body>
+</html>
+
+
