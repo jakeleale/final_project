@@ -9,9 +9,9 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 #App Credentials
-cid = '6a8142a18677431488beba396753df53'
-secret = '8836f10ee23f451986ef72955854ef08'
-redirect_uri = 'https://jakeleale.pythonanywhere.com/callback'
+cid = 'YOUR CLIENT ID'
+secret = 'YOUR CLIENT SECRET'
+redirect_uri = 'YOUR REDIRECT URL'
 scope = "user-library-read user-top-read user-read-private playlist-modify-public playlist-modify-private"
 
 def get_spotify_oauth():
