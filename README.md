@@ -31,4 +31,13 @@ This is within the /mysite directory. Notice the template folder created by the 
 This is within the folder templates. It should look like this
 
 ## Credential Replacements
-Once everything is setup, replace 
+Finally you should create your redirect url. This is a url that redirects your access token from the API after a successful login. Make it 'yourname'.pythonanywhere.com/callback. It should be located under the information of client id and client secret.
+
+Once everything is setup, replace three lines of code in flask_app.py.
+
+Under app credentials section replace these with your personal information.
+cid = 'YOUR CLIENT ID'
+secret = 'YOUR CLIENT SECRET'
+redirect_uri = 'YOUR REDIRECT URL'
+
+After this you should be able to run your code.
